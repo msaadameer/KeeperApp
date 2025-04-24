@@ -1,0 +1,29 @@
+# dependencies
+node_modules/
+.pnpm/
+*.log
+
+# production
+dist/
+build/
+
+# local env files
+.env
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# optional: yarn/npm/pnpm lock files if you're not using them
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
