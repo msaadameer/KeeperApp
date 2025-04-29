@@ -6,24 +6,32 @@ function CreateArea(props) {
     content: ""
   });
 
+  const [error, setError] = useState("");
+
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setNote(prevNote => {
-      return {
-        ...prevNote,
-        [name]: value
-      };
-    });
+    setNote(prevNote => ({
+      ...prevNote,
+      [name]: value
+    }));
+
+    if (name === "title" && value.trim() !== "") {
+      setError(""); // Clear error when user starts typing a valid title
+    }
   }
 
   function submitNote(event) {
+    event.preventDefault(); // Prevent form reload first
+
+    if (note.title.trim() === "") {
+      setError("Title is required.");
+      return;
+    }
+
     props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
-    event.preventDefault();
+    setNote({ title: "", content: "" });
+    setError(""); // Clear error after successful submission
   }
 
   return (
@@ -42,7 +50,10 @@ function CreateArea(props) {
           placeholder="Take a note..."
           rows="3"
         />
-        <button onClick={submitNote}>Add</button>
+        <button onClick={submitNote}>
+          <i className="fas fa-plus"></i>
+        </button>
+        {error && <p className="error-message">{error}</p>}
       </form>
     </div>
   );
